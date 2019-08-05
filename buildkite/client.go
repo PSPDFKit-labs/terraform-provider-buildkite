@@ -13,6 +13,7 @@ const graphqlEndpoint = "https://graphql.buildkite.com/v1"
 // Client can be used to interact with the Buildkite API
 type Client struct {
 	graphql      *graphql.Client
+	rest         *RESTClient
 	http         *http.Client
 	organization string
 }
@@ -24,6 +25,7 @@ func NewClient(org, apiToken string) *Client {
 
 	return &Client{
 		graphql:      graphql.NewClient(graphqlEndpoint, httpClient),
+		rest:         NewRESTClient(httpClient, org),
 		http:         httpClient,
 		organization: org,
 	}
